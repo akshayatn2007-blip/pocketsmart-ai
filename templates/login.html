@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="padding: 40px 0;">
+  <div class="form-card">
+    <div style="text-align: center; margin-bottom: 24px;">
+      <h2 style="font-size: 2rem; font-weight: 800;">Welcome Back</h2>
+      <p style="color: var(--text-muted);">Sign in to access your PocketSmart AI dashboard and saved plans.</p>
+    </div>
+
+    {% if request.query_params.get("registered") %}
+      <div class="alert alert-success">Registration successful! Please log in with your credentials.</div>
+    {% endif %}
+
+    {% if request.query_params.get("msg") == "auth_required" %}
+      <div class="alert alert-danger">Please log in to access the requested page.</div>
+    {% endif %}
+
+    <form action="/login" method="POST">
+      <div class="form-group">
+        <label for="email" class="form-label">Email Address</label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="name@example.com" value="{{ email | default('') }}" required autofocus>
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="••••••••" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top: 10px;">
+        Sign In to PocketSmart AI
+      </button>
+    </form>
+
+    <div style="text-align: center; margin-top: 24px; font-size: 0.95rem; color: var(--text-muted);">
+      Don't have an account? <a href="/register" style="color: var(--primary); font-weight: 600; text-decoration: none;">Register here</a>
+    </div>
+
+    <!-- College Demo Quick Fill Helper -->
+    <div style="margin-top: 25px; padding: 15px; background: #F1F5F9; border-radius: var(--radius-sm); font-size: 0.85rem; color: #475569;">
+      <strong>Demo Tip:</strong> If you don't have an account yet, click <a href="/register" style="color: var(--primary); font-weight: 600;">Register</a> to create one in 5 seconds.
+    </div>
+  </div>
+</div>
+{% endblock %}

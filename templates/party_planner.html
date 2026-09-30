@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="padding: 40px 0;">
+  <div class="form-card">
+    <div style="text-align: center; margin-bottom: 26px;">
+      <span class="card-icon purple" style="margin: 0 auto 15px;">🎉</span>
+      <h2 style="font-size: 2rem; font-weight: 800;">Party & Event Planner</h2>
+      <p style="color: var(--text-muted);">Coordinate catering, venue, decorations, and DJ audio balanced for your guest count.</p>
+    </div>
+
+    <form action="/generate-party" method="POST">
+      <!-- Total Budget & Guest Count -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="budget" class="form-label">Total Event Budget (₹ INR)</label>
+          <input type="number" id="budget" name="budget" class="form-control" placeholder="75000" min="5000" step="1000" value="75000" required>
+        </div>
+
+        <div class="form-group">
+          <label for="num_guests" class="form-label">Expected Guest Count</label>
+          <input type="number" id="num_guests" name="num_guests" class="form-control" min="1" max="5000" value="50" required>
+        </div>
+      </div>
+
+      <div style="margin-top: -10px; margin-bottom: 20px;">
+        <span id="per-guest-preview" style="font-size: 0.85rem; font-weight: 700; color: var(--primary);">
+          ~₹675 / person catering estimate
+        </span>
+      </div>
+
+      <!-- Event Type & Venue Preference -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="event_type" class="form-label">Event Type</label>
+          <select id="event_type" name="event_type" class="form-control" required>
+            <option value="Birthday" selected>Birthday Celebration</option>
+            <option value="Wedding">Wedding Reception / Sangeet</option>
+            <option value="Corporate">Corporate Mixer / Annual Meet</option>
+            <option value="Anniversary">Anniversary Gathering</option>
+            <option value="College Event">College Fest / Farewell</option>
+            <option value="House Party">House Party</option>
+            <option value="Other">Other Social Event</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="venue_preference" class="form-label">Venue Preference</label>
+          <select id="venue_preference" name="venue_preference" class="form-control" required>
+            <option value="Indoor Banquet Hall" selected>Indoor Banquet Hall</option>
+            <option value="Outdoor Lawn / Garden">Outdoor Lawn / Garden</option>
+            <option value="Rooftop Lounge">Rooftop Lounge</option>
+            <option value="Home / Private Villa">Home / Private Villa</option>
+            <option value="Community Center">Community Center</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Food Preference & Decoration -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="food_preference" class="form-label">Food & Catering Preference</label>
+          <select id="food_preference" name="food_preference" class="form-control" required>
+            <option value="Multi-Cuisine Buffet" selected>Multi-Cuisine Buffet</option>
+            <option value="Pure Vegetarian Deluxe">Pure Vegetarian Deluxe</option>
+            <option value="Non-Vegetarian BBQ & Biryani">Non-Vegetarian BBQ & Biryani</option>
+            <option value="Finger Foods & Mocktails">Finger Foods & Mocktails</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="decoration_preference" class="form-label">Decoration Preference</label>
+          <select id="decoration_preference" name="decoration_preference" class="form-control" required>
+            <option value="Themed & Balloon Arch" selected>Themed & Balloon Arch</option>
+            <option value="Floral Minimalist">Floral Minimalist</option>
+            <option value="Fairy Lights & Neon Accents">Fairy Lights & Neon Accents</option>
+            <option value="Luxury Royal Traditional">Luxury Royal Traditional</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Entertainment & Location -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="entertainment_preference" class="form-label">Entertainment Setup</label>
+          <input type="text" id="entertainment_preference" name="entertainment_preference" class="form-control" placeholder="e.g. DJ Sound & Lights, Games Emcee" value="DJ Sound & Lights, Wireless Mic" required>
+        </div>
+
+        <div class="form-group">
+          <label for="location" class="form-label">Location / City</label>
+          <input type="text" id="location" name="location" class="form-control" placeholder="e.g. South Delhi, Indiranagar Bengaluru" value="Bengaluru" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="additional_requirements" class="form-label">Additional Event Notes (Optional)</label>
+        <textarea id="additional_requirements" name="additional_requirements" rows="2" class="form-control" placeholder="Special dietary restrictions, photography stage requirements, etc."></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top: 10px;">
+        🎉 Generate Event Budget & Vendor Breakdown
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/party.js"></script>
+{% endblock %}

@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix PocketSmart AI - Smart Budget \u0026 Recommendation Assistant",
+  "description": "GenAI-powered budget and recommendation assistant for Home Interior, Party/Event, and Jewelry planning with outfit image analysis.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

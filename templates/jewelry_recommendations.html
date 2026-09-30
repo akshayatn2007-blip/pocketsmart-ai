@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="padding: 40px 20px;">
+  <!-- Header Title -->
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px;">
+    <div>
+      <span class="rec-tag" style="background: #D1FAE5; color: #047857;">Jewelry & Outfit Curation</span>
+      <h1 style="font-size: 2.2rem; font-weight: 800; margin-top: 6px;">{{ plan.title }}</h1>
+      <p style="color: var(--text-muted); max-width: 750px;">{{ plan.summary }}</p>
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <a href="/jewelry-planner" class="btn btn-outline">Change Outfit / Style</a>
+      {% if user %}<a href="/history" class="btn btn-primary">Saved in History</a>{% endif %}
+    </div>
+  </div>
+
+  <!-- AI Vision Analysis Box (if available) -->
+  {% if plan.ai_analysis %}
+  <div class="card" style="background: linear-gradient(135deg, #F8FAFC 0%, #EEF2FF 100%); border-color: #C7D2FE; margin-bottom: 25px;">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+      <span style="font-size: 1.2rem;">✨</span>
+      <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--primary);">Gemini Vision & Styling Insights</h3>
+    </div>
+    <p style="font-size: 0.95rem; color: #334155; line-height: 1.6;">{{ plan.ai_analysis }}</p>
+  </div>
+  {% endif %}
+
+  <!-- Budget Summary Cards -->
+  <div class="budget-summary-bar">
+    <div class="budget-stat">
+      <div class="budget-label">Total Allocated Budget</div>
+      <div class="budget-value">₹{{ "{:,.2f}".format(plan.budget_summary.total_budget) }}</div>
+    </div>
+    <div class="budget-stat">
+      <div class="budget-label">Estimated Jewelry Total</div>
+      <div class="budget-value primary">₹{{ "{:,.2f}".format(plan.budget_summary.estimated_total) }}</div>
+    </div>
+    <div class="budget-stat">
+      <div class="budget-label">Savings / Balance</div>
+      <div class="budget-value success">₹{{ "{:,.2f}".format(plan.budget_summary.remaining_budget) }}</div>
+    </div>
+    <div class="budget-stat">
+      <div class="budget-label">Budget Status</div>
+      <div style="margin-top: 6px;">
+        {% if plan.budget_summary.is_within_budget %}
+          <span style="background: #D1FAE5; color: #047857; font-weight: 700; padding: 6px 14px; border-radius: var(--radius-full); font-size: 0.85rem;">
+            ✓ Within Budget Target
+          </span>
+        {% else %}
+          <span style="background: #FEE2E2; color: #B91C1C; font-weight: 700; padding: 6px 14px; border-radius: var(--radius-full); font-size: 0.85rem;">
+            ⚠️ Exceeds Budget
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Jewelry Item Cards -->
+  <h2 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 20px;">Curated Pieces & Accessories</h2>
+  <div class="rec-grid">
+    {% for item in plan.items %}
+      <div class="rec-card">
+        <div>
+          <div class="rec-header">
+            <span class="rec-tag">{{ item.category }}</span>
+            <span class="rec-platform platform-{{ item.platform | lower }}">{{ item.platform }}</span>
+          </div>
+
+          <h3 class="rec-name">{{ item.name }}</h3>
+          <div class="rec-price">₹{{ "{:,.2f}".format(item.estimated_price) }}</div>
+
+          <p class="rec-reason"><strong>Why it matches:</strong> {{ item.reason }}</p>
+
+          {% if item.specs %}
+            <div style="font-size: 0.8rem; color: #475569; background: #F8FAFC; padding: 6px 10px; border-radius: 4px; margin-bottom: 16px;">
+              <strong>Material/Finish:</strong> {{ item.specs }}
+            </div>
+          {% endif %}
+        </div>
+
+        <a href="{{ item.purchase_link }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-block">
+          Find on {{ item.platform }} &rarr;
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

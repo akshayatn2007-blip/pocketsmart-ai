@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+bun.lock
+package-lock.json
+
+# Production Builds
+dist/
+build/
+coverage/
+
+# Environment variables & secrets
+.env*
+!.env.example
+
+# Local SQLite databases & runtime data
+data/*.db
+data/*.sqlite3
+data/*.json
+!data/.gitkeep
+
+# Uploaded media
+uploads/*
+!uploads/.gitkeep
+
+# Python caches & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv/
+
+# OS & Editor files
+.DS_Store
+*.log
+Thumbs.db
+.idea/
+.vscode/

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="padding: 40px 20px;">
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px;">
+    <div>
+      <h1 style="font-size: 2.2rem; font-weight: 800;">Saved Budget Blueprints</h1>
+      <p style="color: var(--text-muted);">Review past recommendations stored in your persistent SQLite database.</p>
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <a href="/home-planner" class="btn btn-outline btn-sm">+ New Home Plan</a>
+      <a href="/party-planner" class="btn btn-outline btn-sm">+ New Party Plan</a>
+      <a href="/jewelry-planner" class="btn btn-outline btn-sm">+ New Jewelry Plan</a>
+    </div>
+  </div>
+
+  {% if records %}
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      {% for rec in records %}
+        <div class="card" style="padding: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+            <div>
+              <span class="rec-tag" style="text-transform: uppercase;">{{ rec.planner_type }}</span>
+              <h3 style="font-size: 1.3rem; font-weight: 800; margin-top: 6px;">{{ rec.title }}</h3>
+              <div style="color: var(--text-muted); font-size: 0.85rem;">Created: {{ rec.created_at }}</div>
+            </div>
+
+            <div style="text-align: right;">
+              <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Budget Limit</div>
+              <div style="font-size: 1.4rem; font-weight: 800; color: var(--primary);">₹{{ "{:,.2f}".format(rec.budget) }}</div>
+            </div>
+          </div>
+
+          <p style="color: #475569; font-size: 0.95rem; margin-bottom: 15px;">{{ rec.summary }}</p>
+
+          <!-- Input Parameters Summary -->
+          <div style="background: #F8FAFC; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 16px; margin-bottom: 16px; font-size: 0.85rem; color: #334155;">
+            <strong>Input Summary: </strong>
+            {% for key, val in rec.request_data.items() %}
+              {% if key not in ['image_data'] and val %}
+                <span style="display: inline-block; margin-right: 12px;"><strong>{{ key.replace('_', ' ') | title }}:</strong> {{ val }}</span>
+              {% endif %}
+            {% endfor %}
+          </div>
+
+          <!-- Items Preview -->
+          <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+            {% for item in rec.response_data.get('items', [])[:4] %}
+              <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 12px; font-size: 0.85rem;">
+                <span style="font-weight: 700;">{{ item.name }}</span>
+                <span style="color: var(--primary); margin-left: 6px;">₹{{ "{:,.0f}".format(item.estimated_price) }}</span>
+                <a href="{{ item.purchase_link }}" target="_blank" style="margin-left: 8px; color: var(--primary); font-weight: 600; text-decoration: none;">[Shop]</a>
+              </div>
+            {% endfor %}
+            {% if rec.response_data.get('items', []) | length > 4 %}
+              <div style="padding: 8px 12px; font-size: 0.85rem; color: var(--text-muted);">
+                + {{ (rec.response_data.get('items', []) | length) - 4 }} more items
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="card" style="text-align: center; padding: 50px 20px;">
+      <div style="font-size: 2.5rem; margin-bottom: 12px;">📂</div>
+      <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 8px;">No Saved Plans Yet</h3>
+      <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto 20px;">
+        When you run the Home, Party, or Jewelry planners, your personalized blueprints will automatically be saved to SQLite.
+      </p>
+      <a href="/home-planner" class="btn btn-primary">Create Your First Plan Now</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

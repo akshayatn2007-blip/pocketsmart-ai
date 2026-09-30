@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="padding: 40px 20px;">
+  <!-- Header Title -->
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px;">
+    <div>
+      <span class="rec-tag" style="background: #EDE9FE; color: #6D28D9;">Party & Event Masterplan</span>
+      <h1 style="font-size: 2.2rem; font-weight: 800; margin-top: 6px;">{{ plan.title }}</h1>
+      <p style="color: var(--text-muted); max-width: 750px;">{{ plan.summary }}</p>
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <a href="/party-planner" class="btn btn-outline">Change Event Details</a>
+      {% if user %}<a href="/history" class="btn btn-primary">Saved in History</a>{% endif %}
+    </div>
+  </div>
+
+  <!-- Budget Summary Cards -->
+  <div class="budget-summary-bar">
+    <div class="budget-stat">
+      <div class="budget-label">Total Allocated Budget</div>
+      <div class="budget-value">₹{{ "{:,.2f}".format(plan.budget_summary.total_budget) }}</div>
+    </div>
+    <div class="budget-stat">
+      <div class="budget-label">Estimated Event Total</div>
+      <div class="budget-value primary">₹{{ "{:,.2f}".format(plan.budget_summary.estimated_total) }}</div>
+    </div>
+    <div class="budget-stat">
+      <div class="budget-label">Contingency / Savings</div>
+      <div class="budget-value success">₹{{ "{:,.2f}".format(plan.budget_summary.remaining_budget) }}</div>
+    </div>
+    <div class="budget-stat">
+      <div class="budget-label">Budget Status</div>
+      <div style="margin-top: 6px;">
+        {% if plan.budget_summary.is_within_budget %}
+          <span style="background: #D1FAE5; color: #047857; font-weight: 700; padding: 6px 14px; border-radius: var(--radius-full); font-size: 0.85rem;">
+            ✓ Within Budget Target
+          </span>
+        {% else %}
+          <span style="background: #FEE2E2; color: #B91C1C; font-weight: 700; padding: 6px 14px; border-radius: var(--radius-full); font-size: 0.85rem;">
+            ⚠️ Exceeds Budget
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Category Allocation Breakdown -->
+  {% if plan.allocations %}
+  <div class="card" style="margin-bottom: 30px;">
+    <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 15px;">Event Budget Distribution (4 Pillars)</h3>
+    <div class="progress-bar-container">
+      {% for alloc in plan.allocations %}
+        {% set colors = ["#EF4444", "#3B82F6", "#8B5CF6", "#10B981"] %}
+        <div class="progress-segment" style="width: {{ alloc.percentage }}%; background-color: {{ colors[loop.index0 % 4] }};" title="{{ alloc.category }}: {{ alloc.percentage }}%"></div>
+      {% endfor %}
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 15px;">
+      {% for alloc in plan.allocations %}
+        {% set colors = ["#EF4444", "#3B82F6", "#8B5CF6", "#10B981"] %}
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem;">
+          <span style="display: inline-block; width: 12px; height: 12px; border-radius: 3px; background: {{ colors[loop.index0 % 4] }};"></span>
+          <strong>{{ alloc.category }}:</strong>
+          <span>₹{{ "{:,.2f}".format(alloc.allocated_amount) }} ({{ alloc.percentage }}%)</span>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Event Service & Vendor Cards -->
+  <h2 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 20px;">Vendor Bookings & Services</h2>
+  <div class="rec-grid">
+    {% for item in plan.items %}
+      <div class="rec-card">
+        <div>
+          <div class="rec-header">
+            <span class="rec-tag">{{ item.category }}</span>
+            <span class="rec-platform platform-{{ item.platform | lower }}">{{ item.platform }}</span>
+          </div>
+
+          <h3 class="rec-name">{{ item.name }}</h3>
+          <div class="rec-price">₹{{ "{:,.2f}".format(item.estimated_price) }}</div>
+
+          <p class="rec-reason">{{ item.reason }}</p>
+
+          {% if item.specs %}
+            <div style="font-size: 0.8rem; color: #475569; background: #F8FAFC; padding: 6px 10px; border-radius: 4px; margin-bottom: 16px;">
+              <strong>Details:</strong> {{ item.specs }}
+            </div>
+          {% endif %}
+        </div>
+
+        <a href="{{ item.purchase_link }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-block">
+          Find on {{ item.platform }} &rarr;
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

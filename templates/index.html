@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-tag">
+      <span>✨ GenAI Powered Smart Budget Assistant</span>
+    </div>
+    <h1 class="hero-title">
+      Plan More, Spend Smart with <br/>
+      <span class="text-gradient">PocketSmart AI</span>
+    </h1>
+    <p class="hero-subtitle">
+      Intelligent, budget-guaranteed recommendations for Home Interiors, Parties & Events, and Matching Jewelry with outfit visual analysis.
+    </p>
+    <div class="hero-actions">
+      <a href="/register" class="btn btn-primary btn-lg">Start Free Planning</a>
+      <a href="#planners" class="btn btn-outline btn-lg">Explore Planners</a>
+    </div>
+  </div>
+</section>
+
+<!-- Planners Showcase Section -->
+<section id="planners" class="container" style="padding: 40px 20px;">
+  <div style="text-align: center; margin-bottom: 20px;">
+    <h2 style="font-size: 2.2rem; font-weight: 800;">Choose Your Planner</h2>
+    <p style="color: var(--text-muted);">Select a category to generate customized, budget-conscious recommendations.</p>
+  </div>
+
+  <div class="grid-3">
+    <!-- Home Interior -->
+    <div class="card">
+      <div class="card-icon blue">🏠</div>
+      <h3 class="card-title">Home Interior Planner</h3>
+      <p class="card-desc">
+        Furnish and decorate living rooms, bedrooms, or home offices within strict budget bounds. Intelligently divides spend across furniture, lighting, and decor.
+      </p>
+      <div style="margin-bottom: 15px;">
+        <span class="rec-platform platform-ikea">IKEA</span>
+        <span class="rec-platform platform-amazon">Amazon</span>
+        <span class="rec-platform platform-flipkart">Flipkart</span>
+      </div>
+      <a href="/home-planner" class="btn btn-primary btn-block">Launch Home Planner &rarr;</a>
+    </div>
+
+    <!-- Party / Event -->
+    <div class="card">
+      <div class="card-icon purple">🎉</div>
+      <h3 class="card-title">Party & Event Planner</h3>
+      <p class="card-desc">
+        Organize unforgettable birthdays, weddings, or corporate events. Automates per-guest food costs, venue bookings, backdrop decorations, and DJ audio.
+      </p>
+      <div style="margin-bottom: 15px;">
+        <span class="rec-platform platform-zomato">Zomato</span>
+        <span class="rec-platform platform-swiggy">Swiggy</span>
+        <span class="rec-platform platform-oyo">OYO</span>
+      </div>
+      <a href="/party-planner" class="btn btn-primary btn-block">Launch Party Planner &rarr;</a>
+    </div>
+
+    <!-- Jewelry -->
+    <div class="card">
+      <div class="card-icon emerald">💎</div>
+      <h3 class="card-title">Jewelry & Outfit Matcher</h3>
+      <p class="card-desc">
+        Upload an outfit image or specify your attire color to discover matching earrings, necklaces, and bangles coordinated to your neckline and event.
+      </p>
+      <div style="margin-bottom: 15px;">
+        <span class="rec-platform platform-caratlane">CaratLane</span>
+        <span class="rec-platform platform-myntra">Myntra</span>
+        <span class="rec-platform platform-amazon">Amazon</span>
+      </div>
+      <a href="/jewelry-planner" class="btn btn-primary btn-block">Launch Jewelry Planner &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section style="background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 60px 0;">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 40px;">
+      <h2 style="font-size: 2.2rem; font-weight: 800;">How PocketSmart Works</h2>
+      <p style="color: var(--text-muted);">Three simple steps to stay on budget without sacrificing quality.</p>
+    </div>
+
+    <div class="grid-3">
+      <div style="text-align: center; padding: 20px;">
+        <div style="font-size: 2.5rem; font-weight: 900; color: var(--primary); margin-bottom: 10px;">1</div>
+        <h4 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">Enter Budget & Preferences</h4>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">Specify your exact budget limit in INR, desired style, guest counts, or upload an outfit photo.</p>
+      </div>
+
+      <div style="text-align: center; padding: 20px;">
+        <div style="font-size: 2.5rem; font-weight: 900; color: var(--accent); margin-bottom: 10px;">2</div>
+        <h4 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">Gemini GenAI Optimization</h4>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">Our advanced AI calculates balanced category splits and curates products strictly within budget.</p>
+      </div>
+
+      <div style="text-align: center; padding: 20px;">
+        <div style="font-size: 2.5rem; font-weight: 900; color: var(--success); margin-bottom: 10px;">3</div>
+        <h4 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">Direct Vendor Links</h4>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">Receive itemized cost breakdowns with direct search links to Amazon, Flipkart, IKEA, Swiggy, and OYO.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Highlight -->
+<section class="container" style="padding: 60px 20px;">
+  <div style="text-align: center; margin-bottom: 40px;">
+    <h2 style="font-size: 2.2rem; font-weight: 800;">Engineered for Precision & Trust</h2>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 10px;">🛡️ Budget Strictness Guarantee</h4>
+      <p style="color: var(--text-muted); font-size: 0.9rem;">Algorithms verify total estimated prices never exceed your input budget, highlighting remaining savings.</p>
+    </div>
+
+    <div class="card">
+      <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 10px;">📷 Multimodal Vision Analysis</h4>
+      <p style="color: var(--text-muted); font-size: 0.9rem;">Upload actual outfit photos. Gemini Vision detects necklines, undertones, and fabric formality for matching jewelry.</p>
+    </div>
+
+    <div class="card">
+      <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 10px;">💾 Persistent SQLite History</h4>
+      <p style="color: var(--text-muted); font-size: 0.9rem;">Every generated budget plan is safely recorded with date, parameters, and breakdown for future review.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

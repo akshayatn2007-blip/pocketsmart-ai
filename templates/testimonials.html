@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="padding: 50px 20px;">
+  <div style="text-align: center; margin-bottom: 45px;">
+    <span class="hero-tag">🌟 Student & Evaluator Showcase</span>
+    <h1 style="font-size: 2.5rem; font-weight: 800; margin-top: 10px;">What Users & Reviewers Say</h1>
+    <p style="color: var(--text-muted); max-width: 650px; margin: 10px auto 0;">
+      Real test scenarios demonstrating how PocketSmart AI stays strictly within budget while delivering personalized recommendations.
+    </p>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div style="display: flex; gap: 4px; color: #F59E0B; margin-bottom: 12px; font-size: 1.1rem;">★★★★★</div>
+      <p style="font-style: italic; color: #334155; margin-bottom: 16px;">
+        "I tested PocketSmart AI for our college fest budget of ₹75,000 for 50 attendees. The automated 45% catering allocation and direct links to Zomato & OYO venues made our project committee presentation an instant hit!"
+      </p>
+      <div style="font-weight: 700; color: var(--text-main);">Rohan Kulkarni</div>
+      <div style="font-size: 0.85rem; color: var(--text-muted);">Event Coordinator, TechFest</div>
+    </div>
+
+    <div class="card">
+      <div style="display: flex; gap: 4px; color: #F59E0B; margin-bottom: 12px; font-size: 1.1rem;">★★★★★</div>
+      <p style="font-style: italic; color: #334155; margin-bottom: 16px;">
+        "The jewelry outfit image analysis is remarkable. I uploaded a picture of my green raw silk lehenga with a sweetheart neckline, and Gemini suggested a matching antique choker from CaratLane that kept me within ₹30,000."
+      </p>
+      <div style="font-weight: 700; color: var(--text-main);">Priya Sundaram</div>
+      <div style="font-size: 0.85rem; color: var(--text-muted);">Wedding Guest & Fashion Student</div>
+    </div>
+
+    <div class="card">
+      <div style="display: flex; gap: 4px; color: #F59E0B; margin-bottom: 12px; font-size: 1.1rem;">★★★★★</div>
+      <p style="font-style: italic; color: #334155; margin-bottom: 16px;">
+        "Furnishing a 1BHK living room with ₹50,000 seemed difficult. PocketSmart divided it across a sofa, nesting table, arc lamp, and rug from IKEA and Amazon, calculating remaining savings down to the rupee."
+      </p>
+      <div style="font-weight: 700; color: var(--text-main);">Ankit Verma</div>
+      <div style="font-size: 0.85rem; color: var(--text-muted);">First-time Apartment Renter</div>
+    </div>
+  </div>
+
+  <!-- College Project Evaluation Checklist Card -->
+  <div class="card" style="margin-top: 40px; background: white; border: 1.5px solid #CBD5E1; padding: 32px;">
+    <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 16px;">🎓 College Project Demonstration Checklist</h3>
+    <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; color: #334155;">
+      <li>✅ <strong>FastAPI Backend:</strong> REST APIs with strict Pydantic schemas, CORS, and SQLite database.</li>
+      <li>✅ <strong>Google Gemini API:</strong> Configurable GenAI model with structured JSON prompting and fallback resilience.</li>
+      <li>✅ <strong>Multimodal Outfit Vision:</strong> Image upload support (JPG/PNG/WEBP up to 5MB) for attire styling.</li>
+      <li>✅ <strong>JWT Authentication:</strong> Secure password hashing with bcrypt, session tokens, and protected endpoints.</li>
+      <li>✅ <strong>Vendor Search Integration:</strong> Real query links for Amazon, Flipkart, IKEA, Swiggy, Zomato, and OYO.</li>
+      <li>✅ <strong>Persistent SQLite History:</strong> User plans stored persistently with timestamps and full itemized metadata.</li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

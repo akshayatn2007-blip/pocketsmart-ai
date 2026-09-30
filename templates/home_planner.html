@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="padding: 40px 0;">
+  <div class="form-card">
+    <div style="text-align: center; margin-bottom: 26px;">
+      <span class="card-icon blue" style="margin: 0 auto 15px;">🏠</span>
+      <h2 style="font-size: 2rem; font-weight: 800;">Home Interior Planner</h2>
+      <p style="color: var(--text-muted);">Intelligent GenAI room furnishing and decoration constrained within your exact budget.</p>
+    </div>
+
+    <form action="/generate-home" method="POST">
+      <!-- Total Budget -->
+      <div class="form-group">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <label for="budget" class="form-label" style="margin-bottom: 0;">Total Budget (₹ INR)</label>
+          <span id="budget-preview" style="font-weight: 700; color: var(--primary);">₹50,000</span>
+        </div>
+        <input type="number" id="budget" name="budget" class="form-control" placeholder="50000" min="5000" step="500" value="50000" required>
+        <small style="color: var(--text-muted); font-size: 0.8rem;">Gemini will optimize item prices so the total cost stays within this budget.</small>
+      </div>
+
+      <!-- Room Type & Number of Rooms -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="room_type" class="form-label">Room Type</label>
+          <select id="room_type" name="room_type" class="form-control" required>
+            <option value="Living Room" selected>Living Room</option>
+            <option value="Bedroom">Bedroom</option>
+            <option value="Kitchen">Kitchen</option>
+            <option value="Dining Room">Dining Room</option>
+            <option value="Home Office">Home Office</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="num_rooms" class="form-label">Number of Rooms</label>
+          <input type="number" id="num_rooms" name="num_rooms" class="form-control" min="1" max="10" value="1" required>
+        </div>
+      </div>
+
+      <!-- Style Preference & Color Theme -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="style_preference" class="form-label">Style Preference</label>
+          <select id="style_preference" name="style_preference" class="form-control" required>
+            <option value="Modern" selected>Modern Minimalist</option>
+            <option value="Scandinavian">Scandinavian</option>
+            <option value="Bohemian">Bohemian Warmth</option>
+            <option value="Industrial">Industrial Contemporary</option>
+            <option value="Traditional">Indian Traditional Heritage</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="color_theme" class="form-label">Color / Theme Palette</label>
+          <input type="text" id="color_theme" name="color_theme" class="form-control" placeholder="e.g. Warm Neutrals & Sage Green" value="Warm Neutrals & Sage Green" required>
+        </div>
+      </div>
+
+      <!-- Required Items & Quantity -->
+      <div class="form-row">
+        <div class="form-group" style="grid-column: span 2;">
+          <label for="required_items" class="form-label">Required Furniture & Decor Items</label>
+          <input type="text" id="required_items" name="required_items" class="form-control" placeholder="e.g. Sofa, Coffee Table, Arc Lamp, Wall Art" value="3-Seater Sofa, Coffee Table, Floor Lamp, Wall Art, Rug" required>
+          <small style="color: var(--text-muted); font-size: 0.8rem;">Enter the items you need; the AI will balance budget across these categories.</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="additional_requirements" class="form-label">Additional Requirements (Optional)</label>
+        <textarea id="additional_requirements" name="additional_requirements" rows="2" class="form-control" placeholder="e.g., Pet friendly fabric, compact space, anti-scratch finish"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top: 10px;">
+        ✨ Generate Smart Interior Blueprint
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/home.js"></script>
+{% endblock %}

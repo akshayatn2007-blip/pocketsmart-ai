@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="padding: 40px 20px;">
+  <!-- Welcome Header -->
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-bottom: 30px;">
+    <div>
+      <h1 style="font-size: 2.2rem; font-weight: 800;">Welcome, {{ user.name }}! 👋</h1>
+      <p style="color: var(--text-muted);">Manage your budget plans, track allocations, and generate new recommendations.</p>
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <a href="/history" class="btn btn-outline">View History ({{ total_count }})</a>
+      <a href="/logout" class="btn btn-outline" style="color: var(--danger); border-color: #FCA5A5;">Logout</a>
+    </div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="grid-3" style="margin: 20px 0 40px;">
+    <div class="card" style="padding: 20px;">
+      <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Total Plans Generated</div>
+      <div style="font-size: 2.2rem; font-weight: 900; color: var(--primary); margin-top: 6px;">{{ total_count }}</div>
+    </div>
+
+    <div class="card" style="padding: 20px;">
+      <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Recent Budget Tracked</div>
+      <div style="font-size: 2.2rem; font-weight: 900; color: var(--success); margin-top: 6px;">₹{{ "{:,.0f}".format(total_budget_planned) }}</div>
+    </div>
+
+    <div class="card" style="padding: 20px;">
+      <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Account Email</div>
+      <div style="font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin-top: 10px; word-break: break-all;">{{ user.email }}</div>
+    </div>
+  </div>
+
+  <!-- Available Planners Quick Launch -->
+  <h2 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 20px;">Quick Planner Launch</h2>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-icon blue">🏠</div>
+      <h3 class="card-title">Home Interior Planner</h3>
+      <p class="card-desc">Design living rooms, bedrooms, or offices with smart budget apportionment and vendor items.</p>
+      <a href="/home-planner" class="btn btn-primary btn-block">New Home Plan &rarr;</a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon purple">🎉</div>
+      <h3 class="card-title">Party & Event Planner</h3>
+      <p class="card-desc">Organize birthdays, weddings, or corporate events with catering, venue, and decor calculations.</p>
+      <a href="/party-planner" class="btn btn-primary btn-block">New Party Plan &rarr;</a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon emerald">💎</div>
+      <h3 class="card-title">Jewelry & Outfit Matcher</h3>
+      <p class="card-desc">Upload outfit images or specify fabric colors to curate matching gold, diamond, or silver accessories.</p>
+      <a href="/jewelry-planner" class="btn btn-primary btn-block">New Jewelry Plan &rarr;</a>
+    </div>
+  </div>
+
+  <!-- Recent Plans Section -->
+  <div style="margin-top: 40px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h2 style="font-size: 1.6rem; font-weight: 800;">Recent Recommendations</h2>
+      <a href="/history" style="color: var(--primary); font-weight: 600; text-decoration: none;">View All &rarr;</a>
+    </div>
+
+    {% if recent_plans %}
+      <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+          <thead>
+            <tr style="background: #F8FAFC; border-bottom: 1px solid var(--border);">
+              <th style="padding: 14px 20px; font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase;">Type</th>
+              <th style="padding: 14px 20px; font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase;">Budget</th>
+              <th style="padding: 14px 20px; font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase;">Date</th>
+              <th style="padding: 14px 20px; font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; text-align: right;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for plan in recent_plans %}
+              <tr style="border-bottom: 1px solid var(--border);">
+                <td style="padding: 14px 20px;">
+                  <span class="rec-tag" style="text-transform: capitalize;">{{ plan.planner_type }}</span>
+                </td>
+                <td style="padding: 14px 20px; font-weight: 700; color: var(--primary);">
+                  ₹{{ "{:,.2f}".format(plan.budget) }}
+                </td>
+                <td style="padding: 14px 20px; color: var(--text-muted); font-size: 0.9rem;">
+                  {{ plan.created_at.strftime("%b %d, %Y - %I:%M %p") }}
+                </td>
+                <td style="padding: 14px 20px; text-align: right;">
+                  <a href="/history" class="btn btn-outline btn-sm">Inspect Plan</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="card" style="text-align: center; padding: 40px;">
+        <p style="color: var(--text-muted); margin-bottom: 15px;">You haven't generated any budget plans yet.</p>
+        <a href="/home-planner" class="btn btn-primary">Create Your First Plan Now</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

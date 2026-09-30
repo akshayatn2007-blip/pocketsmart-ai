@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="padding: 40px 0;">
+  <div class="form-card">
+    <div style="text-align: center; margin-bottom: 26px;">
+      <span class="card-icon emerald" style="margin: 0 auto 15px;">💎</span>
+      <h2 style="font-size: 2rem; font-weight: 800;">Jewelry & Outfit Matcher</h2>
+      <p style="color: var(--text-muted);">Curate matching jewelry for your occasion and outfit using Gemini Vision analysis.</p>
+    </div>
+
+    <form action="/generate-jewelry" method="POST" enctype="multipart/form-data">
+      <!-- Total Budget & Occasion -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="budget" class="form-label">Jewelry Budget (₹ INR)</label>
+          <input type="number" id="budget" name="budget" class="form-control" placeholder="30000" min="2000" step="1000" value="30000" required>
+        </div>
+
+        <div class="form-group">
+          <label for="occasion" class="form-label">Occasion</label>
+          <select id="occasion" name="occasion" class="form-control" required>
+            <option value="Wedding" selected>Wedding / Reception</option>
+            <option value="Engagement">Engagement Ceremony</option>
+            <option value="Birthday">Birthday / Anniversary</option>
+            <option value="Party">Cocktail / Evening Party</option>
+            <option value="Traditional Event">Traditional Festive / Puja</option>
+            <option value="Office Event">Office Formal Gathering</option>
+            <option value="Other">Other Special Occasion</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Jewelry Type & Metal Preference -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="jewelry_type" class="form-label">Jewelry Type</label>
+          <select id="jewelry_type" name="jewelry_type" class="form-control" required>
+            <option value="Complete Set" selected>Complete Coordinated Set</option>
+            <option value="Necklace & Choker">Necklace & Choker</option>
+            <option value="Earrings & Jhumkas">Earrings & Jhumkas</option>
+            <option value="Bangles & Bracelets">Bangles & Bracelets</option>
+            <option value="Statement Ring">Statement Rings</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="metal_preference" class="form-label">Preferred Metal / Material</label>
+          <select id="metal_preference" name="metal_preference" class="form-control" required>
+            <option value="Gold (Yellow Gold)" selected>Yellow Gold / Gold Plated</option>
+            <option value="Rose Gold">Rose Gold</option>
+            <option value="Diamond & Solitaire">Diamond & Solitaire Accents</option>
+            <option value="Silver (925 Sterling)">925 Sterling Silver</option>
+            <option value="Oxidized & Antique">Oxidized Antique Silver</option>
+            <option value="Platinum">Platinum</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Style Preference & Outfit Color -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="style_preference" class="form-label">Style Preference</label>
+          <select id="style_preference" name="style_preference" class="form-control" required>
+            <option value="Traditional Royal Kundan" selected>Traditional Royal / Kundan</option>
+            <option value="Minimalist Contemporary">Minimalist Contemporary</option>
+            <option value="Modern Chic Solitaire">Modern Chic Solitaire</option>
+            <option value="Boho Artisan">Boho Artisan Heritage</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="outfit_color" class="form-label">Outfit Primary Color</label>
+          <input type="text" id="outfit_color" name="outfit_color" class="form-control" placeholder="e.g. Royal Blue, Emerald Green, Ruby Red" value="Emerald Green & Gold Embroidery" required>
+        </div>
+      </div>
+
+      <!-- Outfit Description -->
+      <div class="form-group">
+        <label for="outfit_description" class="form-label">Outfit Details & Neckline</label>
+        <input type="text" id="outfit_description" name="outfit_description" class="form-control" placeholder="e.g. Deep V-neck silk lehenga with zari border" value="Sweetheart neckline raw silk anarkali with zari border">
+      </div>
+
+      <!-- Outfit Image Upload Dropzone -->
+      <div class="form-group">
+        <label class="form-label">Optional: Upload Outfit Photo (For Gemini Vision Analysis)</label>
+        <div class="dropzone" id="dropzone">
+          <div style="font-size: 2rem; margin-bottom: 8px;">📸</div>
+          <p style="font-weight: 600; margin-bottom: 4px;">Click to select or drag & drop outfit image</p>
+          <p style="font-size: 0.8rem; color: var(--text-muted);">Supports JPG, PNG, WEBP (Max 5MB)</p>
+          <input type="file" id="outfit_image" name="outfit_image" accept="image/jpeg,image/png,image/webp,image/jpg" style="display: none;">
+          <div id="file-name" style="margin-top: 8px; font-weight: 700; color: var(--primary); font-size: 0.85rem;"></div>
+        </div>
+        <div id="image-preview" class="image-preview-box" style="display: none;">
+          <img id="preview-img" src="" alt="Outfit preview">
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top: 10px;">
+        💎 Generate Matching Jewelry Collection
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/jewelry.js"></script>
+{% endblock %}
